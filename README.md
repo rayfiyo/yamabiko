@@ -5,4 +5,4 @@
 
 ## Links
 
-https://www.figma.com/design/LB7ZKeOxctg5886XbsP3Sk/yamabiko
+https://www.figma.com/design/Vl5nJmy1PWPqNNTvEdcUFr/main
