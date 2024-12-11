@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 // import SocialTimelineSearchResult from "./SocialTimelineSearchResult";
 // <SocialTimelineSearchResult />
@@ -8,6 +9,12 @@ import header from "./images/yamabiko-header.png";
 import megaphone from "./images/icons/megaphone.svg";
 
 const App = () => {
+  const navigate = useNavigate();
+
+  function shout() {
+    navigate("/timeline");
+  }
+
   return (
     <Container fluid>
       <img
@@ -24,7 +31,7 @@ const App = () => {
             <Form.Control placeholder="どんな話題がある～？" />
           </Form.Group>
 
-          <Button type="submit">
+          <Button type="submit" onClick={shout}>
             <img
               src={megaphone}
               alt="shout (generally means submit) icon"
