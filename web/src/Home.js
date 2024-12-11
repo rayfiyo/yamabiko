@@ -12,17 +12,17 @@ const Home = () => {
   };
 
   return (
-    <Container fluid>
+    <Container>
       <img
         src={header}
         alt="the yamabiko's header"
-        className="img-fluid d-block mx-auto mt-5 w-50"
+        className="d-block mt-5 mx-auto w-50"
       />
       <Form>
-        <div className="d-flex gap-1 mt-3">
+        <div className="d-flex gap-2 mt-3">
           <Form.Group
             controlId="shout"
-            className="flex-grow-1 align-self-center"
+            className="align-self-center flex-grow-1"
           >
             <Form.Control placeholder="どんな話題がある～？" />
           </Form.Group>
@@ -31,7 +31,6 @@ const Home = () => {
             <img
               src={megaphone}
               alt="shout (generally means submit) icon"
-              className="img-fluid"
               style={{ width: "30px" }}
             />
           </Button>
