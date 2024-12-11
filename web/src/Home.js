@@ -7,9 +7,9 @@ import megaphone from "./images/icons/megaphone.svg";
 const Home = () => {
   const navigate = useNavigate();
 
-  function shout() {
+  const shout = () => {
     navigate("/timeline");
-  }
+  };
 
   return (
     <Container fluid>
