@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import header from "./images/yamabiko-header.png";
 import megaphone from "./images/icons/megaphone.svg";
 
-const App = () => {
+const Home = () => {
   const navigate = useNavigate();
 
   function shout() {
@@ -45,4 +45,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;
