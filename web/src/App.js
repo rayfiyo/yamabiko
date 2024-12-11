@@ -1,36 +1,44 @@
 import React from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import SocialTimelineSearchResult from "./SocialTimelineSearchResult";
+import { Container, Form, Button } from "react-bootstrap";
+import "./App.css";
+// import SocialTimelineSearchResult from "./SocialTimelineSearchResult";
+// <SocialTimelineSearchResult />
+
+import header from "./images/yamabiko-header.png";
+import megaphone from "./images/icons/megaphone.svg";
 
 const App = () => {
   return (
     <Container fluid>
-      <Row className="justify-content-center mt-5">
-        <Col xs={12} md={8} lg={6}>
-          <img
-            src="images/yamabiko-header.png"
-            alt="Mountain"
-            className="img-fluid"
-          />
-          <Form className="mt-4">
-            <Form.Group controlId="question">
-              <Form.Label>どんな話題がありますか?</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-            <div className="d-grid gap-2">
-              <Button variant="primary" type="submit">
-                <img
-                  src="public/images/trumpet_icon_24349.svg"
-                  alt="Icon"
-                  className="me-2"
-                />
-                Submit
-              </Button>
-            </div>
-          </Form>
-        </Col>
-      </Row>
-      <SocialTimelineSearchResult />
+      <img
+        src={header}
+        alt="the yamabiko's header"
+        className="img-fluid d-block mx-auto mt-5 w-50"
+      />
+      <Form>
+        <div className="d-flex gap-1 mt-3">
+          <Form.Group
+            controlId="shout"
+            className="flex-grow-1 align-self-center"
+          >
+            <Form.Control placeholder="どんな話題がある～？" />
+          </Form.Group>
+
+          <Button type="submit">
+            <img
+              src={megaphone}
+              alt="shout (generally means submit) icon"
+              className="img-fluid"
+              style={{ width: "30px" }}
+            />
+          </Button>
+        </div>
+
+        <Form.Group controlId="demoMode" className="d-flex flex-row-reverse">
+          <Form.Check type="checkbox" label="Demo mode results" />
+        </Form.Group>
+      </Form>
+      ( // SocialTimelineSearchResult )
     </Container>
   );
 };
