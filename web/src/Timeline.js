@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import { faSearch } from "@fortawesome/free-solid-svg-icons";
 // import { useHistory } from "react-router-dom";
 
-const SocialTimelineSearchResult = () => {
+const Timeline = () => {
   const [searchQuery, setSearchQuery] = useState("");
   // const [posts, setPosts] = useState([
   // 投稿データ;
@@ -50,5 +50,5 @@ const SocialTimelineSearchResult = () => {
   );
 };
 
-export default SocialTimelineSearchResult;
+export default Timeline;
 // <FontAwesomeIcon icon={faSearch} />
