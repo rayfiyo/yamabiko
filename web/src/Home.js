@@ -1,9 +1,5 @@
-import React from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./App.css";
-// import SocialTimelineSearchResult from "./SocialTimelineSearchResult";
-// <SocialTimelineSearchResult />
 
 import header from "./images/yamabiko-header.png";
 import megaphone from "./images/icons/megaphone.svg";
@@ -45,7 +41,6 @@ const App = () => {
           <Form.Check type="checkbox" label="Demo mode results" />
         </Form.Group>
       </Form>
-      ( // SocialTimelineSearchResult )
     </Container>
   );
 };
