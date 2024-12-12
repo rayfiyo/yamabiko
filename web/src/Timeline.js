@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faSearch } from "@fortawesome/free-solid-svg-icons";
 // import { useHistory } from "react-router-dom";
 
@@ -32,15 +31,6 @@ const Timeline = () => {
               value={searchQuery}
               onChange={handleSearch}
             />
-            <div className="input-group-append">
-              <button
-                className="btn btn-primary"
-                type="button"
-                onClick={handleSubmit}
-              >
-                "// FontAwesomeIcon"
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -51,4 +41,3 @@ const Timeline = () => {
 };
 
 export default Timeline;
-// <FontAwesomeIcon icon={faSearch} />
