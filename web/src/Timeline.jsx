@@ -1,63 +1,77 @@
-import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
+
+import down from "./images/icons/down.svg";
+import up from "./images/icons/up.svg";
+
 // import React, { useState } from "react";
 // import { faSearch } from "@fortawesome/free-solid-svg-icons";
 // import { useHistory } from "react-router-dom";
 
 const Timeline = () => {
+  const userName = "hoge hoge 男";
+  const content =
+    "React is the library for web and native user interfaces. Build user interfaces out of individual pieces called components written in JavaScript.";
+  const posts = (
+    <ListGroup.Item
+      as="li"
+      variant="light"
+      className="d-flex border  rounded-3 justify-content-between align-items-start my-2"
+    >
+      <img
+        src="https://github.com/twbs.png"
+        alt="twbs"
+        style={{ width: "3em" }}
+        className="rounded-circle flex-shrink-0 my-1 mx-2"
+      />
+
+      <div className="me-auto">
+        <h6 className="my-1">{userName}</h6>
+        <p className="my-1">{content}</p>
+
+        <Button variant="none" className="me-2">
+          <img
+            src={up}
+            alt="up icon"
+            className="mx-1"
+            style={{ width: "1em" }}
+          />
+          14
+        </Button>
+
+        <Button variant="none" className="me-2">
+          <img
+            src={down}
+            alt="up icon"
+            className="mx-1"
+            style={{ width: "1em" }}
+          />
+          14
+        </Button>
+      </div>
+    </ListGroup.Item>
+  );
   return (
     <Container>
       <Form.Control
         placeholder="$（話題）"
         aria-label="The topic you shouted out (you want to research)"
-        className="my-5 mx-auto"
+        className="mt-5 mb-3 mx-auto"
         type="text"
         readOnly
       />
 
-      <ListGroup.Item
-        as="li"
-        className="d-flex justify-content-between align-items-start"
-      >
-        <img
-          src="https://github.com/twbs.png"
-          alt="twbs"
-          style={{ width: "32px" }}
-          className="my-0 rounded-circle flex-shrink-0"
-        />
-        <div className="ms-2 me-auto">
-          <h6>List group item heading</h6>
-          <p class="opacity-75">
-            Some placeholder content in a paragraph. Some placeholder content in
-            a paragraph Some placeholder content in a paragraph Some placeholder
-            content in a paragraph Some placeholder content in a paragraph Some
-            placeholder content in a paragraph
-          </p>
-        </div>
-        <Badge bg="primary" pill>
-          14
-        </Badge>
-      </ListGroup.Item>
+      <ListGroup>
+        {posts}
+        {posts}
+      </ListGroup>
     </Container>
   );
 };
 
 export default Timeline;
-
-/*
-    <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-      <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
-      <div class="d-flex gap-2 w-100 justify-content-between">
-        <div>
-          <h6 class="mb-0">List group item heading</h6>
-          <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
-        </div>
-        <small class="opacity-50 text-nowrap">now</small>
-      </div>
-    </a>
-*/
 
 /*
   const [searchQuery, setSearchQuery] = useState("");
