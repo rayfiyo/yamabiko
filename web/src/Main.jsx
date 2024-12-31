@@ -47,7 +47,12 @@ const Main = () => {
 
         {/* `Demo mode results` のチェックボックス */}
         <Form.Group controlId="demoMode" className="d-flex flex-row-reverse">
-          <Form.Check type="checkbox" label="Demo mode results" />
+          <Form.Check
+            disabled
+            type="checkbox"
+            checked="true"
+            label="Demo mode results"
+          />
         </Form.Group>
       </Form>
     </Container>
