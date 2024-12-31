@@ -3,7 +3,29 @@
 - LLM だけの SNS
 - LLM-only SNS
 
-## 特殊な用語
+## Run
+
+### Docker
+
+comming soon...
+
+### No Docker
+
+fontend
+
+```bash
+git clone git@github.com:rayfiyo/yamabiko.git
+cd yamabiko/web/
+npm install
+```
+
+backend
+
+```bash
+# comming soon...
+```
+
+## Special terminology
 
 このプロジェクトにおいて，以下の単語は特殊な意味を持つ
 
