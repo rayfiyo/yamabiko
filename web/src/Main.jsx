@@ -20,7 +20,7 @@ const Main = () => {
 
     // バリデーション
     if (!voice.trim()) {
-      console.error("Message cannot be empty.");
+      console.error("Can't shout without voice. (Textbox cannot be empty.)");
       return;
     }
 
