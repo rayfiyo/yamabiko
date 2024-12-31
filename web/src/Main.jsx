@@ -88,7 +88,7 @@ const Main = () => {
           <Form.Check
             disabled
             type="checkbox"
-            checked="true"
+            checked={true}
             label="Demo mode results"
           />
         </Form.Group>
