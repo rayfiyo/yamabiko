@@ -2,15 +2,18 @@
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 
 import header from "./images/yamabiko-header.png";
 import megaphone from "./images/icons/megaphone.svg";
 
 const Main = () => {
   const [voice, setVoice] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   // shout ボタン押下時に実行される，フォームの提出処理をする関数 shout
@@ -20,9 +23,13 @@ const Main = () => {
 
     // バリデーション
     if (!voice.trim()) {
-      console.error("Can't shout without voice. (Textbox cannot be empty.)");
+      setError("テキストボックスを空にすることはできません");
+      console.error("Textbox cannot be empty.");
       return;
     }
+
+    // エラーリセット
+    setError("");
 
     // エラーハンドリング付きで，voice をエンドポイントに shout
     try {
@@ -38,6 +45,7 @@ const Main = () => {
       // エンドポイントに POST した後のエラーハンドリング
       if (!response.ok) {
         const errorData = await response.json();
+        setError(errorData.message || "shout に失敗");
         console.error(errorData.message || "Failed to shout.");
         return;
       }
@@ -46,7 +54,8 @@ const Main = () => {
       navigate("/timeline");
     } catch (error) {
       // エラーハンドリング
-      console.error("An unexpected error occurred:", error);
+      setError("予期せぬエラー: しばらくしてからもう一度お試しください");
+      console.error("An unexpected error: Please try again later.");
     }
   };
 
@@ -55,12 +64,18 @@ const Main = () => {
       {/* ヘッダー画像 */}
       <img
         src={header}
-        alt="the yamabiko's header"
+        alt="The Yamabiko header"
         className="d-block mt-5 mx-auto w-50"
       />
 
-      <Form onSubmit={shout}>
-        <div className="d-flex gap-2 mt-3">
+      <Form onSubmit={shout} className="mt-3">
+        {error && (
+          <Alert variant="danger" onClose={() => setError("")} dismissible>
+            {error}
+          </Alert>
+        )}
+
+        <div className="d-flex gap-2">
           {/* テキストボックス voice */}
           <Form.Group
             controlId="voice"
@@ -70,21 +85,21 @@ const Main = () => {
               placeholder="どんな話題がある～？"
               value={voice}
               onChange={(e) => setVoice(e.target.value)}
+              aria-label="Voice input box (Use to shout)"
             />
           </Form.Group>
 
           {/* フォームの送信ボタン shout  */}
-          <Button type="submit">
-            <img
-              src={megaphone}
-              alt="shout (generally means submit, search) icon"
-              style={{ width: "30px" }}
-            />
+          <Button type="submit" aria-label="Shout button">
+            <img src={megaphone} alt="Shout icon" style={{ width: "30px" }} />
           </Button>
         </div>
 
         {/* `Demo mode results` のチェックボックス */}
-        <Form.Group controlId="demoMode" className="d-flex flex-row-reverse">
+        <Form.Group
+          controlId="demoMode"
+          className="d-flex flex-row-reverse mt-2"
+        >
           <Form.Check
             disabled
             type="checkbox"
