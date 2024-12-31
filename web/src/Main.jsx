@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import header from "./images/yamabiko-header.png";
 import megaphone from "./images/icons/megaphone.svg";
 
-const Home = () => {
+const Main = () => {
   const navigate = useNavigate();
 
   const shout = () => {
@@ -46,4 +46,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Main;
