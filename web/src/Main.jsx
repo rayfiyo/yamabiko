@@ -12,8 +12,9 @@ import header from "./images/yamabiko-header.png";
 import megaphone from "./images/icons/megaphone.svg";
 
 const Main = () => {
-  const [voice, setVoice] = useState("");
+  const [demoMode, setDemoMode] = useState(true);
   const [error, setError] = useState("");
+  const [voice, setVoice] = useState("");
   const navigate = useNavigate();
 
   // shout ボタン押下時に実行される，フォームの提出処理をする関数 shout
@@ -39,7 +40,7 @@ const Main = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ voice }),
+        body: JSON.stringify({ voice, demoMode }),
       });
 
       // エンドポイントに POST した後のエラーハンドリング
@@ -103,7 +104,8 @@ const Main = () => {
           <Form.Check
             disabled
             type="checkbox"
-            checked={true}
+            checked={demoMode}
+            onChange={(e) => setDemoMode(e.target.checked)}
             label="Demo mode results"
           />
         </Form.Group>
