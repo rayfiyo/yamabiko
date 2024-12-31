@@ -32,7 +32,7 @@ backend
 - 単語: 特殊な意味
 - shout: 検索すること
 - voice: 検索クエリの文字列，shout の内容
-- reply: 検索結果，voice を shout した結果
+- echoes: 検索結果であるメッセージ，voice を shout すると echo が得られる
 
 ## Links
 
