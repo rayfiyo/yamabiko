@@ -14,3 +14,11 @@ export async function shoutVoice({ voice, demoMode }) {
     throw new Error(errorData.message || "Failed to shout.");
   }
 }
+
+export async function fetchHistory() {
+  const response = await fetch("http://localhost:8080/api/history");
+  if (!response.ok) {
+    throw new Error("Failed to fetch history.");
+  }
+  return response.json(); // JSON配列が返る想定
+}
