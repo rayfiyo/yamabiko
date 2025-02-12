@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/rayfiyo/yamabiko/internal/domain"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/rayfiyo/yamabiko/internal/domain"
 )
 
 type postgresHistoryRepo struct {
@@ -19,7 +19,7 @@ func NewPostgresHistoryRepo(pool *pgxpool.Pool) domain.HistoryRepository {
 	return &postgresHistoryRepo{pool: pool}
 }
 
-// Save inserts a new shout history record into the DB.
+// 新しい shout history レコードを DB に挿入
 func (r *postgresHistoryRepo) Save(h *domain.ShoutHistory) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -54,7 +54,7 @@ func (r *postgresHistoryRepo) Save(h *domain.ShoutHistory) error {
 	return nil
 }
 
-// FindAll returns all shout history, newest first
+// すべての shout history を新しい順に返す
 func (r *postgresHistoryRepo) FindAll() ([]*domain.ShoutHistory, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
