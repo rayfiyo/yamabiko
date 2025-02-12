@@ -1,27 +1,29 @@
 // src/Timeline.jsx
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import PostItem from "./components/PostItem";
 
+// 先ほど追加した fetchHistory をインポート
+import { fetchHistory } from "./services/api";
+
 const Timeline = () => {
-  // 実際には API 等から取得したデータを入れる想定
-  const mockPosts = [
-    {
-      id: 1,
-      userName: "hoge hoge 男",
-      content: "React is the library for web and native user interfaces...",
-      userIcon: "https://github.com/twbs.png",
-    },
-    {
-      id: 2,
-      userName: "fuga fuga 女",
-      content: "Second post sample",
-      userIcon: "https://github.com/twbs.png",
-    },
-  ];
+  const [histories, setHistories] = useState([]);
+
+  useEffect(() => {
+    // コンポーネントがマウントされたときに /api/history を取得
+    (async () => {
+      try {
+        const data = await fetchHistory();
+        // data は配列
+        // 例: [{ ID: 1, Voice: "…", Response1: "…", ..., CreatedAt: "…" }, ...]
+        setHistories(data);
+      } catch (error) {
+        console.error("Failed to fetch history:", error);
+      }
+    })();
+  }, []);
 
   return (
     <Container>
@@ -35,12 +37,12 @@ const Timeline = () => {
       />
 
       <ListGroup>
-        {mockPosts.map((post) => (
+        {histories.map((h) => (
           <PostItem
-            key={post.id}
-            userName={post.userName}
-            content={post.content}
-            userIcon={post.userIcon}
+            key={h.ID}
+            userName={`(ID:${h.ID})`} // 適当に
+            content={`Voice: ${h.Voice}\n1) ${h.Response1}`}
+            userIcon="https://github.com/twbs.png"
           />
         ))}
       </ListGroup>

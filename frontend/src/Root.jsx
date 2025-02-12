@@ -86,7 +86,6 @@ const Root = () => {
           className="d-flex flex-row-reverse mt-2"
         >
           <Form.Check
-            disabled
             type="checkbox"
             checked={demoMode}
             onChange={(e) => setDemoMode(e.target.checked)}
