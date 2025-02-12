@@ -8,6 +8,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/rayfiyo/yamabiko/internal/domain"
+	"github.com/rayfiyo/yamabiko/utils/consts"
 )
 
 // 依存注入のためのインターフェース
@@ -54,7 +55,7 @@ func shoutHandler(shoutUC ShoutUsecase) http.HandlerFunc {
 		// デモモードの場合
 		if req.DemoMode {
 			w.Header().Set("Content-Type", "application/json")
-			json.NewEncoder(w).Encode(req.Voice + "はとても良い言葉ですね！ところで、デモモードについて知っていますか？デモモードは、このアプリの機能を試すためのモードです。デモモードでは、ユースケース層の処理をスキップして、固定のレスポンスを返します。")
+			json.NewEncoder(w).Encode(req.Voice + consts.DemoMsg)
 			return
 		}
 
