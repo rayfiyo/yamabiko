@@ -1,11 +1,12 @@
 module github.com/rayfiyo/yamabiko
 
-go 1.23.5
+go 1.23
 
 require (
 	github.com/google/generative-ai-go v0.19.0
 	github.com/gorilla/mux v1.8.1
 	github.com/jackc/pgx/v5 v5.7.2
+	github.com/joho/godotenv v1.5.1
 	google.golang.org/api v0.220.0
 )
 

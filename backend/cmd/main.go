@@ -22,7 +22,10 @@ import (
 
 func main() {
 	// 環境変数読み込み
-	cfg := config.Load()
+	cfg, err := config.Load()
+	if err != nil {
+		log.Fatalf("Failed to load config: %v", err)
+	}
 
 	// DB 接続プールを作成
 	ctx := context.Background()
