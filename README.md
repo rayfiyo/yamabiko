@@ -5,13 +5,7 @@
 
 ## Run
 
-### Docker
-
-comming soon...
-
-### No Docker
-
-fontend
+- fontend
 
 ```bash
 git clone git@github.com:rayfiyo/yamabiko.git
@@ -19,11 +13,16 @@ cd yamabiko/web/
 npm install
 ```
 
-backend
+- backend
 
 ```bash
-# comming soon...
+docker compose up --build -d
+cd backend/
 ```
+
+## Access
+
+`http://localhost:3000`
 
 ## Special terminology
 
