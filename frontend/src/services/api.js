@@ -1,7 +1,7 @@
 // src/services/api.js
 
 export async function shoutVoice({ voice, demoMode }) {
-  const response = await fetch("/api/shout", {
+  const response = await fetch("http://localhost:8080/api/shout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
