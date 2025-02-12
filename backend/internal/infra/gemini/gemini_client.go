@@ -35,8 +35,8 @@ func NewGeminiClient(apiKey string) (GeminiClient, error) {
 
 // GenerateResponses : voice に対する6通りの応答を生成して返す
 func (g *geminiClientImpl) GenerateResponses(voice string) ([]string, error) {
-	// コンテキスト(タイムアウト10秒)
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	// コンテキスト(タイムアウト)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	// 使用したいモデルを指定:
@@ -67,9 +67,9 @@ func (g *geminiClientImpl) GenerateResponses(voice string) ([]string, error) {
 		results = append(results, textParts)
 	}
 
-	// もし 6通り未満しか返ってこなかった場合のチェック (状況に応じて)
+	// もし 6通り未満しか返ってこなかった場合のチェック
 	if len(results) < 6 {
-		// 必要に応じてエラーにする or 足りないぶんダミー埋め
+		// 足りない分ダミーにしても良いね
 		return nil, fmt.Errorf("only %d results returned from Gemini", len(results))
 	}
 
