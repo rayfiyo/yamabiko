@@ -54,6 +54,10 @@ const Root = () => {
       />
 
       <Form onSubmit={handleShout} className="mt-3">
+        <Alert variant="warning" onClose={() => setError("")} dismissible>
+          {"検索結果の表示に30秒程かかります…！現在改善中です！"}
+        </Alert>
+
         {error && (
           <Alert variant="danger" onClose={() => setError("")} dismissible>
             {error}
@@ -73,7 +77,6 @@ const Root = () => {
               aria-label="Voice input box (Use to shout)"
             />
           </Form.Group>
-
           {/* フォームの送信ボタン (shout) */}
           <Button type="submit" aria-label="Shout button">
             <img src={megaphone} alt="Shout icon" style={{ width: "30px" }} />
