@@ -1,4 +1,4 @@
-// メインページ
+// src/Root.jsx
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,53 +10,37 @@ import Form from "react-bootstrap/Form";
 
 import header from "./images/yamabiko-header.png";
 import megaphone from "./images/icons/megaphone.svg";
+import { shoutVoice } from "./services/api";
 
-const Main = () => {
+const Root = () => {
   const [demoMode, setDemoMode] = useState(true);
   const [error, setError] = useState("");
   const [voice, setVoice] = useState("");
   const navigate = useNavigate();
 
-  // shout ボタン押下時に実行される，フォームの提出処理をする関数 shout
-  const shout = async (e) => {
-    // フォームのデフォルトの動作（ページリロード）をキャンセル
+  // フォーム送信イベントハンドラ
+  const handleShout = async (e) => {
     e.preventDefault();
 
     // バリデーション
     if (!voice.trim()) {
       setError("テキストボックスを空にすることはできません");
-      console.error("Textbox cannot be empty.");
       return;
     }
 
     // エラーリセット
     setError("");
 
-    // エラーハンドリング付きで，voice をエンドポイントに shout
     try {
-      // 成功時: voice を shout
-      const response = await fetch("/api/shout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ voice, demoMode }),
-      });
-
-      // エンドポイントに POST した後のエラーハンドリング
-      if (!response.ok) {
-        const errorData = await response.json();
-        setError(errorData.message || "shout に失敗");
-        console.error(errorData.message || "Failed to shout.");
-        return;
-      }
-
-      // ページの遷移
+      // shoutVoice() を呼び出して実際の API 通信を行う
+      await shoutVoice({ voice, demoMode });
+      // 成功したらタイムラインに移動
       navigate("/timeline");
-    } catch (error) {
-      // エラーハンドリング
-      setError("予期せぬエラー: しばらくしてからもう一度お試しください");
-      console.error("An unexpected error: Please try again later.");
+    } catch (err) {
+      // API 側やネットワークエラーはここでキャッチ
+      setError(
+        err.message || "予期せぬエラー: しばらくしてからもう一度お試しください"
+      );
     }
   };
 
@@ -69,7 +53,7 @@ const Main = () => {
         className="d-block mt-5 mx-auto w-50"
       />
 
-      <Form onSubmit={shout} className="mt-3">
+      <Form onSubmit={handleShout} className="mt-3">
         {error && (
           <Alert variant="danger" onClose={() => setError("")} dismissible>
             {error}
@@ -90,7 +74,7 @@ const Main = () => {
             />
           </Form.Group>
 
-          {/* フォームの送信ボタン shout  */}
+          {/* フォームの送信ボタン (shout) */}
           <Button type="submit" aria-label="Shout button">
             <img src={megaphone} alt="Shout icon" style={{ width: "30px" }} />
           </Button>
@@ -114,4 +98,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Root;
