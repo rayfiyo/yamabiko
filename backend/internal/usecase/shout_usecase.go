@@ -32,7 +32,7 @@ func NewShoutUsecase(gc GeminiClient, hr domain.HistoryRepository) ShoutUsecase 
 }
 
 func (u *shoutUsecaseImpl) Shout(voice string) ([]string, error) {
-    // 1) Gemini で応答生成
+    // Gemini で応答生成
     responses, err := u.geminiClient.GenerateResponses(voice)
     if err != nil {
         return nil, err
@@ -43,7 +43,7 @@ func (u *shoutUsecaseImpl) Shout(voice string) ([]string, error) {
         return nil, err
     }
 
-    // 2) DB 保存
+    // DB 保存
     history := &domain.ShoutHistory{
         Voice:     voice,
         Response1: responses[0],
@@ -59,7 +59,7 @@ func (u *shoutUsecaseImpl) Shout(voice string) ([]string, error) {
         return nil, err
     }
 
-    // 3) 6件の応答を返す
+    // 6件の応答を返す
     return responses, nil
 }
 

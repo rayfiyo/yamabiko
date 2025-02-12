@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/rayfiyo/yamabiko/internal/domain"
 	"github.com/gorilla/mux"
+	"github.com/rayfiyo/yamabiko/internal/domain"
 )
 
 // 依存注入のためのインターフェース
@@ -28,7 +28,8 @@ func RegisterHTTPHandlers(r *mux.Router, s ShoutUsecase, h HistoryUsecase) {
 // /api/shout
 // --------------------------------------------
 type shoutRequest struct {
-	Voice string `json:"voice"`
+	Voice    string `json:"voice"`
+	DemoMode bool   `json:"demoMode"`
 }
 
 type shoutResponse struct {
@@ -37,9 +38,23 @@ type shoutResponse struct {
 
 func shoutHandler(shoutUC ShoutUsecase) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		// リクエストボディをパース
 		var req shoutRequest
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			http.Error(w, "Invalid request body", http.StatusBadRequest)
+			return
+		}
+
+		// バリデーション
+		if req.Voice == "" {
+			http.Error(w, "voice is required", http.StatusBadRequest)
+			return
+		}
+
+		// デモモードの場合
+		if req.DemoMode {
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(req.Voice + "はとても良い言葉ですね！ところで、デモモードについて知っていますか？デモモードは、このアプリの機能を試すためのモードです。デモモードでは、ユースケース層の処理をスキップして、固定のレスポンスを返します。")
 			return
 		}
 
