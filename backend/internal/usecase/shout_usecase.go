@@ -39,12 +39,12 @@ func (u *shoutUsecaseImpl) Shout(voice string, isDemo bool) ([]string, error) {
 	if isDemo {
 		// デモモードの場合は固定の応答を返す
 		responses = []string{
-			voice + consts.DemoMsg1,
-			voice + consts.DemoMsg2,
-			voice + consts.DemoMsg3,
-			voice + consts.DemoMsg4,
-			voice + consts.DemoMsg5,
-			voice + consts.DemoMsg6,
+			consts.DemoMsg1,
+			consts.DemoMsg2,
+			consts.DemoMsg3,
+			consts.DemoMsg4,
+			consts.DemoMsg5,
+			consts.DemoMsg6,
 		}
 	} else {
 		// デモモードでない場合は Gemini API から応答を取得する
