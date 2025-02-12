@@ -59,6 +59,9 @@ func main() {
 		1*time.Hour,
 	))
 
+	// ハンドラ登録
+	handler.RegisterHTTPHandlers(r, shoutUsecase, historyUsecase)
+
 	// ライブラリで CORS ハンドラを作る
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:3000"},
@@ -68,15 +71,12 @@ func main() {
 	})
 
 	// mux.Router を包む形でハンドラに
-	handler := c.Handler(r)
-
-	// ハンドラ登録
-	handler.RegisterHTTPHandlers(handler, shoutUsecase, historyUsecase)
+	h := c.Handler(r)
 
 	// HTTPサーバ起動
 	addr := fmt.Sprintf("0.0.0.0:%d", cfg.Port)
 	log.Printf("Server running on %s", addr)
-	if err := http.ListenAndServe(addr, handler); err != nil {
+	if err := http.ListenAndServe(addr, h); err != nil {
 		log.Fatalf("Server error: %v", err)
 	}
 }
