@@ -18,6 +18,7 @@ import (
 	"github.com/rayfiyo/yamabiko/internal/infra/gemini"
 	"github.com/rayfiyo/yamabiko/internal/infra/middleware"
 	"github.com/rayfiyo/yamabiko/internal/usecase"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -58,13 +59,24 @@ func main() {
 		1*time.Hour,
 	))
 
+	// ライブラリで CORS ハンドラを作る
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
+		AllowedHeaders:   []string{"Content-Type", "Authorization"},
+		AllowCredentials: false,
+	})
+
+	// mux.Router を包む形でハンドラに
+	handler := c.Handler(r)
+
 	// ハンドラ登録
-	handler.RegisterHTTPHandlers(r, shoutUsecase, historyUsecase)
+	handler.RegisterHTTPHandlers(handler, shoutUsecase, historyUsecase)
 
 	// HTTPサーバ起動
 	addr := fmt.Sprintf("0.0.0.0:%d", cfg.Port)
 	log.Printf("Server running on %s", addr)
-	if err := http.ListenAndServe(addr, r); err != nil {
+	if err := http.ListenAndServe(addr, handler); err != nil {
 		log.Fatalf("Server error: %v", err)
 	}
 }
