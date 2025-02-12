@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/rayfiyo/yamabiko/config"
+	"github.com/rayfiyo/yamabiko/utils/config"
 	"github.com/rayfiyo/yamabiko/internal/handler"
 	"github.com/rayfiyo/yamabiko/internal/infra/db"
 	"github.com/rayfiyo/yamabiko/internal/infra/gemini"
