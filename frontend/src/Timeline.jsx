@@ -1,56 +1,31 @@
-import Button from "react-bootstrap/Button";
+// src/Timeline.jsx
+
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
-
-import down from "./images/icons/down.svg";
-import up from "./images/icons/up.svg";
+import PostItem from "./components/PostItem";
 
 const Timeline = () => {
-  const userName = "hoge hoge 男";
-  const content =
-    "React is the library for web and native user interfaces. Build user interfaces out of individual pieces called components written in JavaScript.";
-  const posts = (
-    <ListGroup.Item
-      as="li"
-      variant="light"
-      className="d-flex border  rounded-3 justify-content-between align-items-start my-2"
-    >
-      <img
-        src="https://github.com/twbs.png"
-        alt="twbs"
-        style={{ width: "3em" }}
-        className="rounded-circle flex-shrink-0 my-1 mx-2"
-      />
+  // 実際には API 等から取得したデータを入れる想定
+  const mockPosts = [
+    {
+      id: 1,
+      userName: "hoge hoge 男",
+      content: "React is the library for web and native user interfaces...",
+      userIcon: "https://github.com/twbs.png",
+    },
+    {
+      id: 2,
+      userName: "fuga fuga 女",
+      content: "Second post sample",
+      userIcon: "https://github.com/twbs.png",
+    },
+  ];
 
-      <div className="me-auto">
-        <h6 className="my-1">{userName}</h6>
-        <p className="my-1">{content}</p>
-
-        <Button variant="none" className="me-2">
-          <img
-            src={up}
-            alt="up icon"
-            className="mx-1"
-            style={{ width: "1em" }}
-          />
-          14
-        </Button>
-
-        <Button variant="none" className="me-2">
-          <img
-            src={down}
-            alt="up icon"
-            className="mx-1"
-            style={{ width: "1em" }}
-          />
-          14
-        </Button>
-      </div>
-    </ListGroup.Item>
-  );
   return (
     <Container>
+      {/* 送信した話題を表示する想定のテキストボックス。要件によって活用方法を調整。 */}
       <Form.Control
         placeholder="$（話題）"
         aria-label="The topic you shouted out (you want to research)"
@@ -60,8 +35,14 @@ const Timeline = () => {
       />
 
       <ListGroup>
-        {posts}
-        {posts}
+        {mockPosts.map((post) => (
+          <PostItem
+            key={post.id}
+            userName={post.userName}
+            content={post.content}
+            userIcon={post.userIcon}
+          />
+        ))}
       </ListGroup>
     </Container>
   );
