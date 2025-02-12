@@ -43,7 +43,7 @@ func (g *geminiClientImpl) GenerateResponses(voice string) ([]string, error) {
 	model := g.client.GenerativeModel("gemini-1.5-pro-latest")
 
 	// 生成パラメータを設定
-	model.ResponseMIMEType = "application/json"
+	// model.ResponseMIMEType = "application/json"  // json で返すように指定できる
 	model.SetCandidateCount(6)
 	resp, err := model.GenerateContent(ctx, genai.Text(voice))
 	if err != nil {
