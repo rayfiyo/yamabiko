@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -16,7 +15,6 @@ import (
 	"github.com/rayfiyo/yamabiko/internal/handler"
 	"github.com/rayfiyo/yamabiko/internal/infra/db"
 	"github.com/rayfiyo/yamabiko/internal/infra/gemini"
-	"github.com/rayfiyo/yamabiko/internal/infra/middleware"
 	"github.com/rayfiyo/yamabiko/internal/usecase"
 	"github.com/rs/cors"
 )
@@ -51,13 +49,6 @@ func main() {
 
 	// ルータ生成
 	r := mux.NewRouter()
-
-	// レートリミットのミドルウェアを取り付け
-	r.Use(middleware.NewRateLimitMiddleware(
-		6*time.Second, // 最短間隔
-		12,            // 1時間あたりの最大回数
-		1*time.Hour,
-	))
 
 	// ハンドラ登録
 	handler.RegisterHTTPHandlers(r, shoutUsecase, historyUsecase)
