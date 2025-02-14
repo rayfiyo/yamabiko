@@ -22,7 +22,7 @@ func TestRateLimitMiddleware_Normal(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 	}))
 
-	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/history", nil)
 	rr := httptest.NewRecorder()
 
 	// 1回目
@@ -51,7 +51,7 @@ func TestRateLimitMiddleware_TooFrequent(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 	}))
 
-	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/history", nil)
 	rr := httptest.NewRecorder()
 
 	// 1回目はOK
@@ -73,7 +73,7 @@ func TestRateLimitMiddleware_MaxRequests(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 	}))
 
-	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/history", nil)
 
 	// 1回目
 	rr := httptest.NewRecorder()
