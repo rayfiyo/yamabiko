@@ -8,10 +8,11 @@ import (
 	"strconv"
 
 	"github.com/joho/godotenv"
+	"github.com/rayfiyo/yamabiko/utils/consts"
 )
 
 type Config struct {
-	Port         int
+	BackendPort  int
 	DBHost       string
 	DBPort       int
 	DBUser       string
@@ -22,11 +23,11 @@ type Config struct {
 
 // Load loads configuration from environment variables
 func Load() (*Config, error) {
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load(consts.EnvPath); err != nil {
 		return nil, fmt.Errorf("failed to load the .env: %v", err)
 	}
 
-	port, err := getEnvAsInt("PORT", 8080)
+	backendport, err := getEnvAsInt("BACKEND_PORT", 8080)
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +38,7 @@ func Load() (*Config, error) {
 	}
 
 	return &Config{
-		Port:         port,
+		BackendPort:  backendport,
 		DBHost:       getEnv("DB_HOST", "localhost"),
 		DBPort:       dbPort,
 		DBUser:       getEnv("DB_USER", "postgres"),

@@ -65,7 +65,7 @@ func main() {
 	h := c.Handler(r)
 
 	// HTTPサーバ起動
-	addr := fmt.Sprintf("0.0.0.0:%d", cfg.Port)
+	addr := fmt.Sprintf("0.0.0.0:%d", cfg.BackendPort)
 	log.Printf("Server running on %s", addr)
 	if err := http.ListenAndServe(addr, h); err != nil {
 		log.Fatalf("Server error: %v", err)
