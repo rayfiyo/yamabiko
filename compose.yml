@@ -1,0 +1,68 @@
+services:
+  # ===============================
+  # Go Backend
+  # ===============================
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: yamabiko-api
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+
+      # Gemini APIキー
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+
+    depends_on:
+      - postgres
+
+  # ===============================
+  # React Frontend
+  # ===============================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: yamabiko-frontend
+    ports:
+        # Nginxコンテナ内は 80 をEXPOSEするようにしている
+      - "${FRONTEND_PORT}:80"
+    depends_on:
+      - api
+
+  # ===============================
+  # PostgreSQL
+  # ===============================
+  postgres:
+    container_name: yamabiko-postgres
+    image: postgres:${DB_VERSION}
+    platform: linux/x86_64
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+
+    healthcheck:
+      interval: 30s
+      retries: 6
+      start_period: 30s
+      test:
+        ["CMD-SHELL", "pg_isready -U ${DB_USER} -h ${DB_HOST} -d ${DB_NAME}"]
+      timeout: 5s
+
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      # 初期化SQLを実行したい場合 (backendフォルダに置いてあるならパスに注意)
+      - ./backend/init_script.sql:/docker-entrypoint-initdb.d/init_script.sql:ro
+
+volumes:
+  db-data:
